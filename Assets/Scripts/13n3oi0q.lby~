@@ -1,0 +1,48 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TargetEffect : MonoBehaviour
+{
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(this.tag == "Boost")
+        {
+            StartCoroutine(Boost());
+        } 
+        else if (this.tag == "Slow")
+        {
+            StartCoroutine(Slow());
+        }
+        else if (this.tag == "Double")
+        {
+            StartCoroutine(Double());
+        }
+        else if (this.tag == "Points")
+        {
+            StartCoroutine(Points());
+        }
+    }
+
+    private string Points()
+    {
+        throw new NotImplementedException();
+    }
+
+    private string Slow()
+    {
+        throw new NotImplementedException();
+    }
+
+    private string Double()
+    {
+        throw new NotImplementedException();
+    }
+
+    private string Boost()
+    {
+        throw new NotImplementedException();
+    }
+}

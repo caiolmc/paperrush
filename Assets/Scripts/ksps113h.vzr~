@@ -1,0 +1,92 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TargetEffect : MonoBehaviour
+{
+    public AudioSource source;
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            source.Play();
+
+            if (this.tag == "Boost")
+            {
+                StartCoroutine(Boost());
+            }
+            else if (this.tag == "Slow")
+            {
+                StartCoroutine(Slow());
+            }
+            else if (this.tag == "Double")
+            {
+                Double();
+            }
+            else if (this.tag == "Points")
+            {
+                Points();
+            }
+            //else if (this.tag == "Star")
+            //{
+            //    Points();
+            //}
+        }
+
+    }
+
+    public void Points()
+    {
+        //Debug.Log("points");
+
+        GameManager.givePoints(false);
+
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        //Destroy(this.gameObject);
+    }
+
+    public void Double()
+    {
+        //Debug.Log("double");
+
+        GameManager.givePoints(true);
+
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        //Destroy(this.gameObject);
+    }
+
+
+    IEnumerator Slow()
+    {
+        //Debug.Log("slow");
+
+        PlaneMovement.speed = 9;
+        this.gameObject.GetComponent<SphereCollider>().enabled = false;
+
+        yield return new WaitForSeconds(3);
+
+        PlaneMovement.speed = 15;
+
+    }
+
+
+    IEnumerator Boost()
+    {
+        //Debug.Log("boost");
+
+        if(PlaneMovement.speed < 25)
+        {
+            PlaneMovement.speed += 5;
+        }
+
+        this.gameObject.GetComponent<SphereCollider>().enabled = false;
+
+        yield return new WaitForSeconds(3);
+
+        PlaneMovement.speed -= 5;
+
+    }
+}
